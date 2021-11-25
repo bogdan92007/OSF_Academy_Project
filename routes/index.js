@@ -22,4 +22,20 @@ router.get('/log-in', function(req, res, next) {
   res.render('log-in', { title: 'Alibazon' });
 });
 
+router.get('/modal', function(req, res, next) {
+  res.render('modal', { title: 'Alibazon' });
+});
+
+router.get('/wishlist', function(req, res, next) {
+  res.render('wishlist', { title: 'Alibazon' });
+});
+
+router.get('/shopping-cart', function(req, res, next) {
+  res.render('shopping-cart', { title: 'Alibazon' });
+});
+
+router.get('/checkout', function(req, res, next) {
+  res.render('checkout', { title: 'Alibazon' });
+});
+
 module.exports = router;
