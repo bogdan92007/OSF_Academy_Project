@@ -1,41 +1,44 @@
 var express = require('express');
 var router = express.Router();
+var orice = require('./orice.js');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Alibazon' });
+router.get('/', async function(req, res, next) {
+  var mainCatalog = await orice.getRootCategories();
+  res.render('index', {  title: "Home", apiResponse: mainCatalog });
 });
+
 /* GET catalog page */
-router.get('/products-page', function(req, res, next) {
-  res.render('products-page', { title: 'Alibazon' });
+router.get('/catalog/:category', async function(req, res, next) {
+  var catalogItems = await orice.getCatalogItems(req.params.category);
+  res.render('catalog', { title: req.params.category, apiResponse: catalogItems });
 });
 
-router.get('/product-page', function(req, res, next) {
-  res.render('product-page', { title: 'Alibazon' });
+/* Get and Post for the registry process */
+router.get('/register', async function(req, res, next) {
+  
+  return res.render('register', { title: 'Sign up'});
 });
 
-router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Alibazon' });
-});
-
-router.get('/log-in', function(req, res, next) {
-  res.render('log-in', { title: 'Alibazon' });
-});
-
-router.get('/modal', function(req, res, next) {
-  res.render('modal', { title: 'Alibazon' });
-});
-
-router.get('/wishlist', function(req, res, next) {
-  res.render('wishlist', { title: 'Alibazon' });
-});
-
-router.get('/shopping-cart', function(req, res, next) {
-  res.render('shopping-cart', { title: 'Alibazon' });
-});
-
-router.get('/checkout', function(req, res, next) {
-  res.render('checkout', { title: 'Alibazon' });
-});
-
+// router.get('./register', function(req, res, next) {
+//   if (req.body.email &&
+//     req.body.name &&
+//     req.body.password &&
+//     req.body.confirmPassword) {
+//       if (req.body.password !== req.body.confirmPassword) {
+//         var err = new Error ('Passwords do not match.');
+//         err.status = 400;
+//         return next(err);
+//       }
+//       var userData = {
+//         email: req.body.email,
+//         name: req.body.name,
+//         password: req.body.password
+//       };
+//     } else {
+//       var err = new Error ('All fields must be completed');
+//       err.status = 400;
+//       return (next(err));
+//     }
+//   })
 module.exports = router;
