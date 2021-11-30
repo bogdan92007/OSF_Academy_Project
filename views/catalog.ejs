@@ -10,18 +10,18 @@
     <nav class='navbar navbar-light bg-light'>
         <a class='navbar-brand fs-1'>Alibazon</a>
         <form class='form-inline'>
-            <a class='btn btn-outline-success' id='mens-category-button' href='../catalog/mens' type='button'>Mens</a>
-            <a class='btn btn-outline-success' id='womens-catalog-button' href='../catalog/womens' type='button'>Womens</a>   
-            <button class='btn btn-outline-success' type='button' data-toggle='modal' data-target='#ModalLoginForm'>Register/Log in</button>
+          <a class='btn btn-outline-success' id='mens-category-button' href='catalog/mens' type='button'>Mens</a>
+          <a class='btn btn-outline-success' id='womens-catalog-button' href='catalog/womens' type='button'>Womens</a>   
+          <a href="/wishlist" class='btn btn-outline-success'>Wishlist</a>
+
         </form>
     </nav>
     <!--Navbar-->
     <!--Breadcrumbs-->
     <nav aria-label='breadcrumb'>
         <ol class='breadcrumb mb-4 pt-4'>
-            <li class='breadcrumb-item'><a href='index'>Home</a></li>
-            <li class='breadcrumb-item'><a href='catalog'>Category</a></li>
-            <li class='breadcrumb-item' aria-current='page'>Subcategory</li>
+            <li class='breadcrumb-item'><a href="/">Home</a></li>
+            <li class='breadcrumb-item'><a href="/catalog/<%= title %>"><%= title %></a></li>
         </ol>
     </nav>
     <!--/Breadcrumbs-->
@@ -29,21 +29,19 @@
     <!--Products page-->
     
     <% for(let i = 0; i < apiResponse.length; i++) { %>
-        <div class="card mb-3" style="max-width: 1980px;">
+        <div class="card mx-5" style="max-width: 1980px;">
+            <img src="<%= apiResponse[i].image %>" class="img-fluid rounded-start" alt="category image">
             <div class="row g-0" style="margin: 5%;">
-                <div class="col-md-4">
-                    <img src="<%= apiResponse[i].image %>" class="img-fluid rounded-start" alt="category image">
-                </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><%= apiResponse[i].name %></h5>
                         <p class="card-text"><%= apiResponse[i].page_description %></p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <a href="/catalog/<%= apiResponse[i].id %>" class='btn btn-outline-success'>View More!</a>
                     </div>
                 </div>
             </div>
         </div>     
-    <% } %>             
+        <% } %>             
         
         <!--/Products page-->
         <!--Footer-->

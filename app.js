@@ -20,10 +20,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(indexRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+ // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   res.status(404).render("Page not found.");
+// });
+
+// Global error handler //
+
+// app.use(function(err, req, res, next)  {
+
+//   if(err.status === 404) {
+//     res.status(404).render("Page not found", { err });
+//   } else {
+//     err.message = err.message || "Error status 500. Something went wrong."
+//     res.status(err.status || 500).render("error", {err});
+//   }
+// });
 
 // error handler
 app.use(function(err, req, res, next) {

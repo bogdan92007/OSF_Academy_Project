@@ -18,4 +18,38 @@ async function getRootCategories() {
     return mainCategories;
 }
 
-module.exports = {getCatalogItems, getRootCategories};
+async function wishlist(token) {
+    const config = {
+        headers: { Authorization: 'Bearer ' + token }
+    };
+    try {
+        let res = await axios.get(baseUrl + '/wishlist' + '?secretKey=' + secretKey, config);
+        return res.data;
+    } catch (e) {
+        return e;
+    }
+}
+
+async function signup() {
+    let res = await axios.get(baseUrl + '/auth/signup');
+    return res.data;
+}
+
+async function login(payload) {
+    payload.secretKey = secretKey;
+    let res = await axios.post(baseUrl + '/auth/signin', payload);
+    return res.data.token;
+}
+
+async function getProduct(productId) {
+    let res = await axios.get(baseUrl + '/products/product_search?id=' + productId + "&secretKey=" + secretKey);
+    return res.data;
+}
+
+async function getProducts(category) {
+    let res = await axios.get(baseUrl + '/products/product_search?primary_category_id=' + category + "&secretKey=" + secretKey);
+    return res.data;
+}
+
+
+module.exports = {getCatalogItems, getRootCategories, wishlist, login, signup, getProducts, getProduct};

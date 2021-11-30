@@ -11,6 +11,8 @@
   <form class='form-inline'>
     <a class='btn btn-outline-success' id='mens-category-button' href='catalog/mens' type='button'>Mens</a>
     <a class='btn btn-outline-success' id='womens-catalog-button' href='catalog/womens' type='button'>Womens</a>   
+    <a href="/wishlist" class='btn btn-outline-success'>Wishlist</a>
+
     <button class='btn btn-outline-success' data-toggle='modal' data-target='#ModalLoginForm' type='button'>Register/Log in</button>
   </form>
 </nav>
@@ -23,12 +25,12 @@
         <h1 class='modal-title'>Login</h1>
       </div>
       <div class='modal-body'>
-        <form role='form' method='POST' action=''>
+        <form role='form' method='POST' action='login'>
           <input type='hidden' name='_token' value=''>
           <div class='form-group'>
             <label class='control-label'>E-Mail Address</label>
             <div>
-              <input type='email' class='form-control input-lg' name='email' value=''>
+              <input type='email' class='form-control input-lg' name='email'>
             </div>
           </div>
           <div class='form-group'>
@@ -85,24 +87,20 @@
 <!--Breadcrumbs-->
 <nav aria-label='breadcrumb'>
   <ol class='breadcrumb mb-4 pt-4'>
-    <li class='breadcrumb-item'><a href='index'>Home</a></li>
-    <li class='breadcrumb-item'><a href='catalog'>Category</a></li>
-    <li class='breadcrumb-item' aria-current='page'>Subcategory</li>
+    <li class='breadcrumb-item'><a href='/'>Home</a></li>
   </ol>
 </nav>
 <!--/Breadcrumbs-->  
 <!--  -->
 <% for(let i = 0; i < apiResponse.length; i++) { %>
   <div class="card mb-3" style="max-width: 1980px;">
+    <img src="catalog/<%= apiResponse[i].image %>" class="card-img-top" alt="category image">
     <div class="row g-0" style="margin: 5%;">
-      <div class="col-md-4">
-        <img src="catalog/<%= apiResponse[i].image %>" class="img-fluid rounded-start" alt="category image">
-    </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title"><%= apiResponse[i].name %></h5>
+          <h3 class="card-title"><%= apiResponse[i].name %></h3>
           <p class="card-text"><%= apiResponse[i].page_description %></p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <a href="catalog/<%= apiResponse[i].id %>" class="btn btn-outline-success"><%= "View more " + apiResponse[i].name + " products" %></a>
         </div>
       </div>
     </div>
